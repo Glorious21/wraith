@@ -312,6 +312,12 @@ export function createApp(): express.Application {
    * Returns 200 as long as the process is alive.
    * Used by orchestrators to decide whether to restart the container.
    */
+  // W082 proof: an undocumented route. This commit exists to show the coverage
+  // suite fails on it, and is reverted by the next one.
+  app.get("/w082-undocumented-probe", (_req: Request, res: Response) => {
+    res.json({ ok: true });
+  });
+
   app.get("/healthz", (_req: Request, res: Response) => {
     res.json({ ok: true, uptime: process.uptime() });
   });
